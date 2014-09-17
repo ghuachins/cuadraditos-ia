@@ -1,0 +1,6 @@
+(defun prom ()
+	(setq x (read))
+	(setq y (read))
+	(setq prom (/ (+ x y) 2))
+	(format t "El promedio es ~S" prom)
+)
