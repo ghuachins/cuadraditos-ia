@@ -278,9 +278,6 @@
   )
 )
 
-(defun 
-)
-
 ;funcion principal que inicia el juego
 (defun juego-timbiriche ()
   (inicializar-juego2)
