@@ -237,30 +237,37 @@
     ; (print cuadradito)
      (if (probar linea cuadradito)
          (progn
-         (dolist (x cuadradito)
-           (print x)
-            (if (not(equal (nth x *Tablero*) nil))
-                (setq cnt (+ 1 cnt))
-            )
+              (dolist (x cuadradito)
+                 (print x)
+                  (if (not(equal (nth x *Tablero*) nil))
+                      (setq cnt (+ 1 cnt))
+                  )
+               )
+               (print cnt)
+               (if (= cnt 4)
+                   (progn
+                       (pintar (llenarCuad i) turno)
+                   
+                       (if (= turno 1)
+                         (setq *NroHumano* (+ 1 *NroHumano*))
+                         (setq *NroOrdenador* (+ 1 *NroOrdenador*))
+                       )
+                   )
+                   ;else
+                   ;(setq *turno* (* -1 *turno*))
+                )
+
+               (setq *turno* (* -1 *turno*))
+               (print *turno*)
+
          )
-         (print cnt)
-         (if (= cnt 4)
-             (progn
-                 (pintar (llenarCuad i) turno)
-             
-                 (if (= turno 1)
-                   (setq *NroHumano* (+ 1 *NroHumano*))
-                   (setq *NroOrdenador* (+ 1 *NroOrdenador*))
-                 )
-             )
-         )
-         )
+     
      )
   )
 )
 
 ;funcion para jugar
-(defun jugar_humano ()
+(defun jugar_humano () 
   (setq disp *LineasDisp*)
   (format t "Indica la posicion en la que desea trazar-->")
   (setq linea (read))
@@ -269,13 +276,34 @@
            (setq posreal (dar-pos-real linea))
            (editar-tablero posreal *humano*)
            (eliminar-disp linea)
-           (verificarCuad posreal 1)
+           (verificarCuad posreal *turno*)
       )
       (progn 
          (format t "Esta Ocupado ~%")
          (jugar_humano)
       )
   )
+
+     (print "JUGO HUMANO") 
+)
+
+
+(defun jugar-ordenador ()
+
+
+   (setq lineai (random (length *LineasDisp*))) 
+
+   (setq linea (nth lineai *LineasDisp*))
+
+    
+           (setq posreal (dar-pos-real linea))
+           (editar-tablero posreal *Ordenador*)
+           (eliminar-disp linea)
+           (verificarCuad posreal *turno*)
+    
+    (print "JUGO ORDENADOR")   
+
+
 )
 
 ;funcion principal que inicia el juego
@@ -283,8 +311,15 @@
   (inicializar-juego2)
   (mostrar-tablero2)
   (loop
-      
-      (jugar_humano)
+      (if (= *turno* 1)
+       (progn 
+
+          (jugar_humano)
+          (print *turno*)
+        )
+       ;else
+        (jugar-ordenador)
+      )
       (mostrar-tablero2)
       (if (equal nil *LineasDisp*)
           (return t)
