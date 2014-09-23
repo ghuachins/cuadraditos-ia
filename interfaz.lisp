@@ -300,7 +300,14 @@
       )
       (mostrar-tablero2)
       (if (equal nil *LineasDisp*)
-          (return t)
+          (progn
+              (cond 
+                 ((> *NroHumano* *NroOrdenador*) (print "GANASTE! :D"))
+                 ((< *NroHumano* *NroOrdenador*) (print "PERDISTE! :'("))
+                 ((= *NroHumano* *NroOrdenador*) (print "EMPATE :O"))
+              )
+              (return t)
+           )
       )
    )
 )
