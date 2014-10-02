@@ -27,10 +27,118 @@
   *colorHumano* '"#ff2f70"
   *colorOrdenador* '"#0083e8" )
 
+
+;---------------------------------------------------
+;EVALUACIONES PARA CADA LINEA
+(defun val-linea (posx posy)
+    (* (- posx 80) (- posy 56) )
+  )
+(defun val-linea2 (posx posy)
+    (* (- posx 280) (- posy 56) )
+  )
+(defun val-linea3 (posx posy)
+    (* (- posx 56) (- posy 80) )
+  )
+(defun val-linea4 (posx posy)
+    (* (- posx 256) (- posy 80) )
+  )
+(defun val-linea5 (posx posy)
+    (* (- posx 456) (- posy 80) )
+  )
+
+
+(defun val-linea6 (posx posy)
+    (* (- posx 80) (- posy 256) )
+  )
+(defun val-linea7 (posx posy)
+    (* (- posx 280) (- posy 256) )
+  )
+(defun val-linea8 (posx posy)
+    (* (- posx 56) (- posy 280) )
+  )
+(defun val-linea9 (posx posy)
+    (* (- posx 256) (- posy 280) )
+  )
+(defun val-linea10 (posx posy)
+    (* (- posx 456) (- posy 280) )
+  )
+
+
+(defun val-linea11 (posx posy)
+    (* (- posx 80) (- posy 456) )
+  )
+(defun val-linea12 (posx posy)
+    (* (- posx 280) (- posy 456) )
+  )
+;---------------------------------------------------
+
+
+(defun	posicion-linea (evento)
+
+	(let ((indice NIL) )
+     
+     (if(and (< (val-linea (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
+                  (setq indice 0)
+                  ;linea 2
+                  (if(and (< (val-linea2 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
+                      (setq indice 1)
+                     ;linea 3
+                     (if(and (< (val-linea3 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
+                         (setq indice 2)
+                        ;linea 4
+                        (if(and (< (val-linea4 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
+                            (setq indice 3)
+                           ;linea 5
+                           (if(and (< (val-linea5 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
+                               (setq indice 4)
+                              ;linea 6
+                              (if(and (< (val-linea6 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
+                                  (setq indice 5)
+                                 ;linea 7 
+                                 (if(and (< (val-linea7 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
+                                     (setq indice 6)
+                                    ;linea 8
+                                    (if(and (< (val-linea8 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
+                                        (setq indice 7)
+                                       ;linea 9
+                                       (if(and (< (val-linea9 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
+                                           (setq indice 8)
+                                           ;linea 10
+                                           (if(and (< (val-linea10 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
+                                           		(setq indice 9)
+                                           		;linea 11
+                                           		(if(and (< (val-linea11 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
+		                                           (setq indice 10)
+		                                           ;linea 12
+		                                           (if(and (< (val-linea12 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
+			                                           (setq indice 11)
+
+			                                           (setq indice nil)
+			                                           
+		                                           )  
+                                           
+                                      		    )  
+                                           
+                                            )  
+
+                                       )  
+                                    ) 
+                                 ) 
+                              ) 
+                           ) 
+                        ) 
+                     ) 
+                  )
+                )
+
+     indice
+     ) 
+)
+
 (defun tablero()
 	(with-ltk ()
 		(let* (
-					(img (make-image))
+					;(img (make-image))
 					(sc (make-instance 'canvas :height 520 :width 800))
 					(lienzo (canvas sc))
 					; Caminos por el tablero
@@ -69,15 +177,35 @@
 			 )
 
 		(pack sc :expand 1 :fill :both)
-		(image-load img "iron-man.png")
-		(create-image sc 480 0 :image img)
+		;(image-load img "iron-man.png")
+		;(create-image sc 480 0 :image img)
 		(wm-title *tk* "Cuadraditos 3X3")
 
 		(bind lienzo "<ButtonPress-1>"
 			(lambda (evento)
+
+				(setq indiceLinea (posicion-linea evento) )
+				(print indiceLinea)
+				(format t "~&~s    ~s    ~s" (event-x evento) (event-y evento)  () )
+				(cond
+				( (= indiceLinea 0) (itemconfigure lienzo linea1 :fill *colorHumano*) )
+				( (= indiceLinea 1) (itemconfigure lienzo linea2 :fill *colorHumano*) )
+				( (= indiceLinea 2) (itemconfigure lienzo linea3 :fill *colorHumano*) )
+				( (= indiceLinea 3) (itemconfigure lienzo linea4 :fill *colorHumano*) )
+				( (= indiceLinea 4) (itemconfigure lienzo linea5 :fill *colorHumano*) )
+				( (= indiceLinea 5) (itemconfigure lienzo linea6 :fill *colorHumano*) )
+				( (= indiceLinea 6) (itemconfigure lienzo linea7 :fill *colorHumano*) )
+				( (= indiceLinea 7) (itemconfigure lienzo linea8 :fill *colorHumano*) )
+				( (= indiceLinea 8) (itemconfigure lienzo linea9 :fill *colorHumano*) ) 
+				( (= indiceLinea 9) (itemconfigure lienzo linea10 :fill *colorHumano*) ) 
+				( (= indiceLinea 10) (itemconfigure lienzo linea11 :fill *colorHumano*) ) 
+				( (= indiceLinea 11) (itemconfigure lienzo linea12 :fill *colorHumano*) ) 
+				   ((= indiceLinea nil)  (print 'lugar-incorrecto) ) 
+				)
+
+
+
 				
-				(itemconfigure lienzo linea1 :width 20)
-			(itemconfigure lienzo linea1 :fill *colorHumano*)		
 
 			)
 
