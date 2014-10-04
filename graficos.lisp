@@ -3,23 +3,9 @@
 
 ;---------------------------------------------------
 	; CARGAMOS EL ARCHIVO INTERFAZ.
+
 (load "interfaz.lisp")
 
-
-
-;---------------------------------------------------
-
-(inicializar-juego2)
-
-;---------------------------------------------------
-
-
-(defvar *Posiciones*)
-(defvar *colorFicha*)
-(defvar *colorHumano*)
-(defvar *colorOrdenador*)
-(defvar *jugada*)
-(defvar *turno*)
 
 (setq 
   *colorLinea* '"#ccd2c8"
@@ -135,6 +121,9 @@
      ) 
 )
 
+
+(inicializar-juego2)
+
 (defun tablero()
 	(with-ltk ()
 		(let* (
@@ -181,96 +170,145 @@
 		;(create-image sc 480 0 :image img)
 		(wm-title *tk* "Cuadraditos 3X3")
 
-		(bind lienzo "<ButtonPress-1>"
-			(lambda (evento)
+			(mostrar-tablero2)
 
-				(setq indiceLinea (posicion-linea evento) )
-				(print indiceLinea)
-				(format t "~&~s    ~s    " (event-x evento) (event-y evento)  )
-				
-				(cond
-				( (= indiceLinea 1) (itemconfigure lienzo linea1 :fill *colorHumano*) )
-				( (= indiceLinea 2) (itemconfigure lienzo linea2 :fill *colorHumano*) )
-				( (= indiceLinea 3) (itemconfigure lienzo linea3 :fill *colorHumano*) )
-				( (= indiceLinea 4) (itemconfigure lienzo linea4 :fill *colorHumano*) )
-				( (= indiceLinea 5) (itemconfigure lienzo linea5 :fill *colorHumano*) )
-				( (= indiceLinea 6) (itemconfigure lienzo linea6 :fill *colorHumano*) )
-				( (= indiceLinea 7) (itemconfigure lienzo linea7 :fill *colorHumano*) )
-				( (= indiceLinea 8) (itemconfigure lienzo linea8 :fill *colorHumano*) )
-				( (= indiceLinea 9) (itemconfigure lienzo linea9 :fill *colorHumano*) ) 
-				( (= indiceLinea 10) (itemconfigure lienzo linea10 :fill *colorHumano*) ) 
-				( (= indiceLinea 11) (itemconfigure lienzo linea11 :fill *colorHumano*) ) 
-				( (= indiceLinea 12) (itemconfigure lienzo linea12 :fill *colorHumano*) ) 
-				((equal indiceLinea -1)  (print 'lugar-incorrecto) )
-				)
+					(bind lienzo "<ButtonPress-1>"
+						(lambda (evento)
 
+							(setq indiceLinea (posicion-linea evento) )
+							(print indiceLinea)
+							(format t "~&~s    ~s    " (event-x evento) (event-y evento)  )
+							
+							(if  (> indiceLinea 0) 
 
+									(progn 
+										
+										(if( = *turno* 1)
+											(jugar-humano indiceLinea)
+										)
 
-				
+										(if(= *turno* -1)
+											(jugar-ordenador)
+										 )
+										
 
-			)
+										(if (equal nil *LineasDisp*)
+								          (progn
+								              (cond 
+								                 ((> *NroHumano* *NroOrdenador*) (print "GANASTE! :D"))
+								                 ((< *NroHumano* *NroOrdenador*) (print "PERDISTE! :'("))
+								                 ((= *NroHumano* *NroOrdenador*) (print "EMPATE :O"))
+								              )
+								              
+								           )
+								        )
+		
+									)			
+							)
+							
+							
+							(mostrar-tablero2)
+	
 
-		)
-				    
+						 (show-tablero)
 
-		; Grosor de los caminos
-		(itemconfigure lienzo linea1 :width 8)
-		(itemconfigure lienzo linea1 :fill *colorLinea*)
-	    (itemconfigure lienzo linea2 :width 8)
-		(itemconfigure lienzo linea2 :fill *colorLinea*)
-         
-        (itemconfigure lienzo linea3 :width 8)
-		(itemconfigure lienzo linea3 :fill *colorLinea*)
-	    (itemconfigure lienzo linea4 :width 8)
-		(itemconfigure lienzo linea4 :fill *colorLinea*)
-		(itemconfigure lienzo linea5 :width 8)
-		(itemconfigure lienzo linea5 :fill *colorLinea*)
-
-         
-		(itemconfigure lienzo ovalo1 :fill *colorFicha*)
-		(itemconfigure lienzo ovalo1 :width 3)
-		(itemconfigure lienzo ovalo2 :fill *colorFicha*)
-		(itemconfigure lienzo ovalo2 :width 3)
-		(itemconfigure lienzo ovalo3 :fill *colorFicha*)
-		(itemconfigure lienzo ovalo3 :width 3)
-
-		(itemconfigure lienzo ovalo4 :fill *colorFicha*)
-		(itemconfigure lienzo ovalo4 :width 3)
-		(itemconfigure lienzo ovalo5 :fill *colorFicha*)
-		(itemconfigure lienzo ovalo5 :width 3)
-		(itemconfigure lienzo ovalo6 :fill *colorFicha*)
-		(itemconfigure lienzo ovalo6 :width 3)
-
-
-		(itemconfigure lienzo linea6 :width 8)
-		(itemconfigure lienzo linea6 :fill *colorLinea*)
-	    (itemconfigure lienzo linea7 :width 8)
-		(itemconfigure lienzo linea7 :fill *colorLinea*)
-         
-        (itemconfigure lienzo linea8 :width 8)
-		(itemconfigure lienzo linea8 :fill *colorLinea*)
-	    (itemconfigure lienzo linea9 :width 8)
-		(itemconfigure lienzo linea9 :fill *colorLinea*)
-		(itemconfigure lienzo linea10 :width 8)
-		(itemconfigure lienzo linea10 :fill *colorLinea*)
+						)
 
 
 
+					)
+							    
+
+					; Grosor de los caminos
+					(itemconfigure lienzo linea1 :width 8)
+					(itemconfigure lienzo linea1 :fill *colorLinea*)
+				    (itemconfigure lienzo linea2 :width 8)
+					(itemconfigure lienzo linea2 :fill *colorLinea*)
+			         
+			        (itemconfigure lienzo linea3 :width 8)
+					(itemconfigure lienzo linea3 :fill *colorLinea*)
+				    (itemconfigure lienzo linea4 :width 8)
+					(itemconfigure lienzo linea4 :fill *colorLinea*)
+					(itemconfigure lienzo linea5 :width 8)
+					(itemconfigure lienzo linea5 :fill *colorLinea*)
+
+			         
+					(itemconfigure lienzo ovalo1 :fill *colorFicha*)
+					(itemconfigure lienzo ovalo1 :width 3)
+					(itemconfigure lienzo ovalo2 :fill *colorFicha*)
+					(itemconfigure lienzo ovalo2 :width 3)
+					(itemconfigure lienzo ovalo3 :fill *colorFicha*)
+					(itemconfigure lienzo ovalo3 :width 3)
+
+					(itemconfigure lienzo ovalo4 :fill *colorFicha*)
+					(itemconfigure lienzo ovalo4 :width 3)
+					(itemconfigure lienzo ovalo5 :fill *colorFicha*)
+					(itemconfigure lienzo ovalo5 :width 3)
+					(itemconfigure lienzo ovalo6 :fill *colorFicha*)
+					(itemconfigure lienzo ovalo6 :width 3)
 
 
-		(itemconfigure lienzo ovalo7 :fill *colorFicha*)
-		(itemconfigure lienzo ovalo7 :width 3)
-		(itemconfigure lienzo ovalo8 :fill *colorFicha*)
-		(itemconfigure lienzo ovalo8 :width 3)
-		(itemconfigure lienzo ovalo9 :fill *colorFicha*)
-		(itemconfigure lienzo ovalo9 :width 3)
+					(itemconfigure lienzo linea6 :width 8)
+					(itemconfigure lienzo linea6 :fill *colorLinea*)
+				    (itemconfigure lienzo linea7 :width 8)
+					(itemconfigure lienzo linea7 :fill *colorLinea*)
+			         
+			        (itemconfigure lienzo linea8 :width 8)
+					(itemconfigure lienzo linea8 :fill *colorLinea*)
+				    (itemconfigure lienzo linea9 :width 8)
+					(itemconfigure lienzo linea9 :fill *colorLinea*)
+					(itemconfigure lienzo linea10 :width 8)
+					(itemconfigure lienzo linea10 :fill *colorLinea*)
 
-		(itemconfigure lienzo linea11 :width 8)
-		(itemconfigure lienzo linea11 :fill *colorLinea*)
-	    (itemconfigure lienzo linea12 :width 8)
-		(itemconfigure lienzo linea12 :fill *colorLinea*)
 
-         )
+
+
+
+					(itemconfigure lienzo ovalo7 :fill *colorFicha*)
+					(itemconfigure lienzo ovalo7 :width 3)
+					(itemconfigure lienzo ovalo8 :fill *colorFicha*)
+					(itemconfigure lienzo ovalo8 :width 3)
+					(itemconfigure lienzo ovalo9 :fill *colorFicha*)
+					(itemconfigure lienzo ovalo9 :width 3)
+
+					(itemconfigure lienzo linea11 :width 8)
+					(itemconfigure lienzo linea11 :fill *colorLinea*)
+				    (itemconfigure lienzo linea12 :width 8)
+					(itemconfigure lienzo linea12 :fill *colorLinea*)
+
+        	 		(defun show-tablero ()
+
+					    (dotimes (contador 23)
+					    	
+					    	(setq val (tipo-ficha2 (nth (+ contador 1) *tablero*) (+ contador 1) ) )
+					    	
+					    	(if  (or (eq val *lineav*) (eq val *lineah*))    
+
+					    		  (cond
+									( (= (+ contador 1) 1) (itemconfigure lienzo linea1 :fill *colorHumano*) )
+									( (= (+ contador 1) 3) (itemconfigure lienzo linea2 :fill *colorHumano*) )
+									( (= (+ contador 1) 5) (itemconfigure lienzo linea3 :fill *colorHumano*) )
+									( (= (+ contador 1) 7) (itemconfigure lienzo linea4 :fill *colorHumano*) )
+									( (= (+ contador 1) 9) (itemconfigure lienzo linea5 :fill *colorHumano*) )
+									( (= (+ contador 1) 11) (itemconfigure lienzo linea6 :fill *colorHumano*) )
+									( (= (+ contador 1) 13) (itemconfigure lienzo linea7 :fill *colorHumano*) )
+									( (= (+ contador 1) 15) (itemconfigure lienzo linea8 :fill *colorHumano*) )
+									( (= (+ contador 1) 17) (itemconfigure lienzo linea9 :fill *colorHumano*) ) 
+									( (= (+ contador 1) 19) (itemconfigure lienzo linea10 :fill *colorHumano*) ) 
+									( (= (+ contador 1) 21) (itemconfigure lienzo linea11 :fill *colorHumano*) ) 
+									( (= (+ contador 1) 23) (itemconfigure lienzo linea12 :fill *colorHumano*) )
+									(t 'fin)
+								  )
+
+								  	
+
+					    	)
+					   	
+					   	)   
+
+				   )
+
+        	 )
       )
 
 )
