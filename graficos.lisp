@@ -189,21 +189,6 @@
 				(format t "~&~s    ~s    " (event-x evento) (event-y evento)  )
 				
 				(cond
-<<<<<<< HEAD
-				( (= indiceLinea 0) (itemconfigure lienzo linea1 :fill *colorHumano*) )
-				( (= indiceLinea 1) (itemconfigure lienzo linea2 :fill *colorHumano*) )
-				( (= indiceLinea 2) (itemconfigure lienzo linea3 :fill *colorHumano*) )
-				( (= indiceLinea 3) (itemconfigure lienzo linea4 :fill *colorHumano*) )
-				( (= indiceLinea 4) (itemconfigure lienzo linea5 :fill *colorHumano*) )
-				( (= indiceLinea 5) (itemconfigure lienzo linea6 :fill *colorHumano*) )
-				( (= indiceLinea 6) (itemconfigure lienzo linea7 :fill *colorHumano*) )
-				( (= indiceLinea 7) (itemconfigure lienzo linea8 :fill *colorHumano*) )
-				( (= indiceLinea 8) (itemconfigure lienzo linea9 :fill *colorHumano*) ) 
-				( (= indiceLinea 9) (itemconfigure lienzo linea10 :fill *colorHumano*) ) 
-				( (= indiceLinea 10) (itemconfigure lienzo linea11 :fill *colorHumano*) ) 
-				( (= indiceLinea 11) (itemconfigure lienzo linea12 :fill *colorHumano*) ) 
-				((equal indiceLinea -1)  (print 'lugar-incorrecto) )
-=======
 				( (= indiceLinea 1) (itemconfigure lienzo linea1 :fill *colorHumano*) )
 				( (= indiceLinea 2) (itemconfigure lienzo linea2 :fill *colorHumano*) )
 				( (= indiceLinea 3) (itemconfigure lienzo linea3 :fill *colorHumano*) )
@@ -216,8 +201,7 @@
 				( (= indiceLinea 10) (itemconfigure lienzo linea10 :fill *colorHumano*) ) 
 				( (= indiceLinea 11) (itemconfigure lienzo linea11 :fill *colorHumano*) ) 
 				( (= indiceLinea 12) (itemconfigure lienzo linea12 :fill *colorHumano*) ) 
-				((equal indiceLinea -1)  (print 'lugar-incorrecto) ) 
->>>>>>> origin/master
+				((equal indiceLinea -1)  (print 'lugar-incorrecto) )
 				)
 
 
