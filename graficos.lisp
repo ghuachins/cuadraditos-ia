@@ -31,8 +31,18 @@
 ;---------------------------------------------------
 ;EVALUACIONES PARA CADA LINEA
 (defun val-linea (posx posy)
-    (* (- posx 80) (- posy 56) )
+   (and (and (>= posx 80) (<= posx 240)) (and (>= posy 56) (<= posy 64) )  )
+
   )
+
+
+
+
+
+
+
+
+
 (defun val-linea2 (posx posy)
     (* (- posx 280) (- posy 56) )
   )
@@ -77,58 +87,10 @@
 
 	(let ((indice NIL) )
      
-     (if(and (< (val-linea (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
+     (if ((val-linea (event-x evento) (event-y evento)) )  
                   (setq indice 0)
-                  ;linea 2
-                  (if(and (< (val-linea2 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
-                      (setq indice 1)
-                     ;linea 3
-                     (if(and (< (val-linea3 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
-                         (setq indice 2)
-                        ;linea 4
-                        (if(and (< (val-linea4 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
-                            (setq indice 3)
-                           ;linea 5
-                           (if(and (< (val-linea5 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
-                               (setq indice 4)
-                              ;linea 6
-                              (if(and (< (val-linea6 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
-                                  (setq indice 5)
-                                 ;linea 7 
-                                 (if(and (< (val-linea7 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
-                                     (setq indice 6)
-                                    ;linea 8
-                                    (if(and (< (val-linea8 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
-                                        (setq indice 7)
-                                       ;linea 9
-                                       (if(and (< (val-linea9 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
-                                           (setq indice 8)
-                                           ;linea 10
-                                           (if(and (< (val-linea10 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
-                                           		(setq indice 9)
-                                           		;linea 11
-                                           		(if(and (< (val-linea11 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
-		                                           (setq indice 10)
-		                                           ;linea 12
-		                                           (if(and (< (val-linea12 (event-x evento) (event-y evento) ) 1280) (> (val-linea (event-x evento) (event-y evento) ) 0) )
-			                                           (setq indice 11)
-
-			                                           (setq indice nil)
-			                                           
-		                                           )  
-                                           
-                                      		    )  
-                                           
-                                            )  
-
-                                       )  
-                                    ) 
-                                 ) 
-                              ) 
-                           ) 
-                        ) 
-                     ) 
-                  )
+                  (setq indice -1)
+                  
                 )
 
      indice
@@ -187,6 +149,7 @@
 				(setq indiceLinea (posicion-linea evento) )
 				(print indiceLinea)
 				(format t "~&~s    ~s    ~s" (event-x evento) (event-y evento)  () )
+				
 				(cond
 				( (= indiceLinea 0) (itemconfigure lienzo linea1 :fill *colorHumano*) )
 				( (= indiceLinea 1) (itemconfigure lienzo linea2 :fill *colorHumano*) )
@@ -200,7 +163,7 @@
 				( (= indiceLinea 9) (itemconfigure lienzo linea10 :fill *colorHumano*) ) 
 				( (= indiceLinea 10) (itemconfigure lienzo linea11 :fill *colorHumano*) ) 
 				( (= indiceLinea 11) (itemconfigure lienzo linea12 :fill *colorHumano*) ) 
-				   ((= indiceLinea nil)  (print 'lugar-incorrecto) ) 
+				((equal indiceLinea -1)  (print 'lugar-incorrecto) ) 
 				)
 
 
