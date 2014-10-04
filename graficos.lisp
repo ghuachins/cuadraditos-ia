@@ -163,7 +163,7 @@
 				( (= indiceLinea 9) (itemconfigure lienzo linea10 :fill *colorHumano*) ) 
 				( (= indiceLinea 10) (itemconfigure lienzo linea11 :fill *colorHumano*) ) 
 				( (= indiceLinea 11) (itemconfigure lienzo linea12 :fill *colorHumano*) ) 
-				((equal indiceLinea -1)  (print 'lugar-incorrecto) ) 
+				((equal indiceLinea -1)  (print 'lugar-incorrecto) )
 				)
 
 
