@@ -274,8 +274,6 @@
            (eliminar-disp linea)
            (verificarCuad posreal *turno*)
       )
-
-
   )
      (print "JUEGA HUMANO") 
 )
