@@ -2,30 +2,18 @@
 ; nodo= (estado turno regla nivel)
 ;f_eval=(0.5*(nro. de cuad. con 2 lineas)+0.8*(nro. de cuad. mios))-(0.2*(nro. de cuad. con 3 lineas)+0.2*(nro. de cuad. de adversario))
 
-;(setq *Tablero* '(  nil -1 nil nil nil
-;	                -1 nil nil nil nil
-;	                nil 1 nil nil nil
-;	                nil nil nil nil nil
-;	                nil nil nil nil nil)
-;
-;      *Cuad* '((1 5 7 11) (3 7 9 13) (11 15 17 21) (13 17 19 23))
-;
-;      *Turno* 1
-;
-;      *NroHumano* 0
-;      *NroOrdenador* 0
-;)
+(setq *Tablero* '(  nil -1 nil nil nil
+	                -1 nil nil nil nil
+	                nil 1 nil nil nil
+	                nil nil nil nil nil
+	                nil nil nil nil nil)
 
-(defun algoritmo_minimax (tablero)
-  (setq *Tablero* tablero
-        *Cuad* '((1 5 7 11) (3 7 9 13) (11 15 17 21) (13 17 19 23))
-        *Turno* 1
-        *NroHumano* 0
-        *NroOrdenador* 0)
-  (setq nodoi (list tablero 1 0 0))
-  (setq resultado (val_minimax nodoi))
-  (format t "~%La linea a trazar debe ser:~s" (nth 0 resultado))
-  (nth 0 resultado)
+      *Cuad* '((1 5 7 11) (3 7 9 13) (11 15 17 21) (13 17 19 23))
+
+      *Turno* 1
+
+      *NroHumano* 0
+      *NroOrdenador* 0
 )
 
 (defun val_minimax (nodo)
@@ -106,8 +94,6 @@
 	(setq listaSucesor '())
 	(setq turnoHijo *turno*)
     (setq tablero (nth 0 nodo))
-    (setq turnoAux 0)
-    (setq Aux '())
 
 	( dotimes (contador 12)
            
@@ -115,19 +101,17 @@
                (progn
 
                	(setq tableroaux (editar-tablero (posicionOrig contador) (nth 1 nodo) tablero  ))
-                (setq Aux (verificarCuad (posicionOrig contador) (nth 1 nodo) tableroaux))
-               	(setq tableroaux (nth 0 Aux))
-                (setq turnoAux (nth 1 Aux))
+               	(setq tableroaux (verificarCuad (posicionOrig contador)  *turno* tableroaux) )
                	 
 
-				(setq nodoaux  (list tableroaux turnoAux (+ contador 1) (+ (nth 3 nodo) 1) ) )
+				(setq nodoaux  (list tableroaux *Turno* (+ contador 1) (+ (nth 3 nodo) 1) ) )
 				(print nodoaux)
 				(setq listaSucesor (append listaSucesor (list nodoaux) ) )
                	)    
 			
 
 			 )
-			 (setq turnoAux turnoHijo)
+			 (setq *turno* turnoHijo)
              	
     )
     listaSucesor
@@ -153,13 +137,11 @@
         ((equal numCuad 3) 18)
   )
 )
-;funcion para verificar si se lleno algun cuadrado
+;funcion para verificar si se llenó algún cuadrado
 (defun verificarCuad (linea turno tablero)
-	
-        (setq tabPaint tablero)
+	(setq tabPaint tablero)
 	(setq tab tablero)
-        (setq bandera nil)
-        (setq turnof 1)
+  (setq bandera nil)
   (dotimes (i 4)
      (setq cnt 0)
      (setq cuadradito (nth i *Cuad*))
@@ -183,9 +165,9 @@
          )     
      )
   )
-  (if (equal bandera nil) (setq turnof (* -1 turno)) (setq turnof turno))
+  (if (equal bandera nil) (setq *turno* (* -1 *turno*)))
 
-   (list tabPaint turnof)
+   tabPaint
    ;si no cerramos un cuadrado cambiamos de turno
 )
 
