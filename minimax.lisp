@@ -17,9 +17,8 @@
 ;)
 
 (defun algoritmo_minimax (tablero)
-  (setq *Tablero* tablero
-        *Cuad* '((1 5 7 11) (3 7 9 13) (11 15 17 21) (13 17 19 23))
-        *Turno* 1
+  (setq *Cuad* '((1 5 7 11) (3 7 9 13) (11 15 17 21) (13 17 19 23))
+        ;*Turno* 1
         *NroHumano* 0
         *NroOrdenador* 0)
   (setq nodoi (list tablero 1 0 0))
@@ -30,13 +29,13 @@
 
 (defun val_minimax (nodo)
 	(let ((maximo -50) (minimo 50) (valor '()) (aux '()))
-		(format t "~%Nodo: ~s Turno:~s Regla:~s Nivel:~s" (nth 0 nodo) (nth 1 nodo) (nth 2 nodo) (nth 3 nodo))
+		;(format t "~%Nodo: ~s Turno:~s Regla:~s Nivel:~s" (nth 0 nodo) (nth 1 nodo) (nth 2 nodo) (nth 3 nodo))
 		(if (nodo_terminal nodo)
 			(f_eval nodo)
 			;else
 			(progn
-				(print "No terminal")
-				(if (>= (nth 3 nodo) 3)   ;3 es el maximo nivel de profundidad del arbol
+				;(print "No terminal")
+				(if (>= (nth 3 nodo) 5)   ;3 es el maximo nivel de profundidad del arbol
 					(f_eval nodo)
 					;else
 					(progn
@@ -46,9 +45,9 @@
 									(setq aux (val_minimax x))
 									(if (>= (nth 1 aux) maximo)
 										(progn 
-											(print "hola que hace")
+											
 												(setq valor (list (nth 2 x) (nth 1 aux)))
-												(print valor)
+												;(print valor)
 											(setq maximo (nth 1 aux))
 										)
 									)
@@ -62,7 +61,7 @@
 										(progn 
 											(setq valor (list (nth 2 x) (nth 1 aux)))
 											(setq minimo (nth 1 aux))
-                                                                                        (print valor)
+												;(print valor)
 										)
 									)
 								)
@@ -96,7 +95,7 @@
 	)
 )
 
-(defun posicionOrig (linea)
+(defun posicionOrig-arbol (linea)
 		 (- (* (+ linea 1) 2) 1 ) 
 )
 
@@ -104,24 +103,24 @@
 
 (defun sucesores (nodo)
 	(setq listaSucesor '())
-	(setq turnoHijo *turno*)
+	(setq turnoHijo (nth 0 nodo))
     (setq tablero (nth 0 nodo))
     (setq turnoAux 0)
     (setq Aux '())
 
 	( dotimes (contador 12)
            
-             (if (equal (nth (posicionOrig contador) tablero ) nil) 
+             (if (equal (nth (posicionOrig-arbol contador) tablero ) nil) 
                (progn
 
-               	(setq tableroaux (editar-tablero (posicionOrig contador) (nth 1 nodo) tablero  ))
-                (setq Aux (verificarCuad (posicionOrig contador) (nth 1 nodo) tableroaux))
+               	(setq tableroaux (editar-tablero-arbol (posicionOrig-arbol contador) (nth 1 nodo) tablero  ))
+                (setq Aux (verificarCuad-arbol (posicionOrig-arbol contador) (nth 1 nodo) tableroaux))
                	(setq tableroaux (nth 0 Aux))
                 (setq turnoAux (nth 1 Aux))
                	 
 
 				(setq nodoaux  (list tableroaux turnoAux (+ contador 1) (+ (nth 3 nodo) 1) ) )
-				(print nodoaux)
+				;(print nodoaux)
 				(setq listaSucesor (append listaSucesor (list nodoaux) ) )
                	)    
 			
@@ -134,19 +133,19 @@
 )
 
 
-(defun pintar (pos tur tablero)
-  (editar-tablero pos tur tablero)
+(defun pintar-arbol (pos tur tablero)
+  (editar-tablero-arbol pos tur tablero)
   
 )
 ;funcion para probar si un elemento pertenece a una lista
-(defun probar (elemento lista)
+(defun probar-arbol (elemento lista)
   (if (equal nil (member elemento lista))
       (setq valor nil)   ;no esta
       (setq valor t)     ;si esta
   )
 )
 ;funcion para identificar el cuadrado a pintar
-(defun llenarCuad (numCuad)
+(defun llenarCuad-arbol (numCuad)
   (cond ((equal numCuad 0) 6)
         ((equal numCuad 1) 8)
         ((equal numCuad 2) 16)
@@ -154,7 +153,7 @@
   )
 )
 ;funcion para verificar si se lleno algun cuadrado
-(defun verificarCuad (linea turno tablero)
+(defun verificarCuad-arbol (linea turno tablero)
 	
         (setq tabPaint tablero)
 	(setq tab tablero)
@@ -163,7 +162,7 @@
   (dotimes (i 4)
      (setq cnt 0)
      (setq cuadradito (nth i *Cuad*))
-     (if (probar linea cuadradito)
+     (if (probar-arbol linea cuadradito)
          (progn
               (dolist (x cuadradito)
                   (if (not(equal (nth x tab) nil))
@@ -172,12 +171,12 @@
                )
                (if (= cnt 4)
                    (progn
-                       (setq tabPaint (pintar (llenarCuad i) turno tab))
+                       (setq tabPaint (pintar-arbol (llenarCuad-arbol i) turno tab))
                        (setq bandera t)
-                       (if (= turno 1)
-                         (setq *NroHumano* (+ 1 *NroHumano*))
-                         (setq *NroOrdenador* (+ 1 *NroOrdenador*))
-                       )
+                       ;(if (= turno 1)
+                         ;(setq *NroHumano* (+ 1 *NroHumano*))
+                         ;(setq *NroOrdenador* (+ 1 *NroOrdenador*))
+                       ;)
                    )
                )
          )     
@@ -191,7 +190,7 @@
 
 
 
-(defun editar-tablero (posicion elemento tablero )
+(defun editar-tablero-arbol (posicion elemento tablero)
   (setq tab tablero)
   (setq listaux '())  ;lista auxiliar
   (setq cnt 0)        ;inicializamos el contador
@@ -366,10 +365,10 @@
 	)
 	
 	; aplicando la formula tenemos
-	(format t "~%Numero de cuadrados de 1: ~S" cnt1);
-	(format t "~%Numero de cuadrados de -1: ~S" cnt_1);
-	(format t "~%Numero de cuadrados con 2 lineas ~S" num_cuad_2)
-	(format t "~%Numero de cuadrados con 3 lineas ~S" num_cuad_3)
+	;(format t "~%Numero de cuadrados de 1: ~S" cnt1);
+	;(format t "~%Numero de cuadrados de -1: ~S" cnt_1);
+	;(format t "~%Numero de cuadrados con 2 lineas ~S" num_cuad_2)
+	;(format t "~%Numero de cuadrados con 3 lineas ~S" num_cuad_3)
 	
 	;f_eval=(0.5*(nro. de cuad. con 2 lineas)+0.8*(nro. de cuad. mios))-(0.2*(nro. de cuad. con 3 lineas)+0.2*(nro. de cuad. de adversario))
 	(if (= turno 1)
@@ -377,6 +376,6 @@
 		(setq fun_eval (- (+ (* 0.5 num_cuad_2) (* 0.8 cnt_1)) (+ (* 0.2 num_cuad_3) (* 0.2 cnt1))))
 	)
 	
-	(format t "~%Valor de la funcion de evaluacion: ~S" fun_eval)
+	;(format t "~%Valor de la funcion de evaluacion: ~S" fun_eval)
 	fun_eval
 )

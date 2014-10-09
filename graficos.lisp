@@ -127,7 +127,7 @@
 (defun tablero()
 	(with-ltk ()
 		(let* (
-					;(img (make-image))
+					(img (make-image))
 					(sc (make-instance 'canvas :height 520 :width 800))
 					(lienzo (canvas sc))
 					; Caminos por el tablero
@@ -166,8 +166,6 @@
 			 )
 
 		(pack sc :expand 1 :fill :both)
-		;(image-load img "iron-man.png")
-		;(create-image sc 480 0 :image img)
 		(wm-title *tk* "Cuadraditos 3X3")
 
 			(mostrar-tablero2)
@@ -307,7 +305,8 @@
 					   	)   
 
 				   )
-
+				(image-load img "iron-man.png")
+				(create-image sc 450 0 :image img)
         	 )
       )
 

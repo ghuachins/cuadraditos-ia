@@ -1,4 +1,8 @@
 ;//////////////////////////////////////////////////////////////////////////
+;cargamos el archivo donde se encuentra el algoritmo minimax
+(load "minimax.lisp")
+
+;//////////////////////////////////////////////////////////////////////////
 (defun inicializar-juego2()
   (setq
     *Tablero* '(nil nil nil nil nil
@@ -284,14 +288,14 @@
   (if (> (length *LineasDisp*) 0)
 
     (progn
-        (setq lineai (random (length *LineasDisp*))) 
-        (setq linea (nth lineai *LineasDisp*))  
+        ;(setq lineai (random (length *LineasDisp*))) 
+        ;(setq linea (nth lineai *LineasDisp*))  
+		;llamamos a algoritmo minimax
+		(setq lineaC (algoritmo_minimax *Tablero*))
 
-   
-
-       (setq posreal (dar-pos-real linea))
+       (setq posreal (dar-pos-real lineaC))
        (editar-tablero posreal *Ordenador*)
-       (eliminar-disp linea)
+       (eliminar-disp lineaC)
        (verificarCuad posreal *turno*)
 
        (if (= *turno* -1)
