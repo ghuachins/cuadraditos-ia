@@ -1,4 +1,8 @@
 ;//////////////////////////////////////////////////////////////////////////
+;hola
+;que 
+;hace
+
 (defun inicializar-juego2()
 	(setq
 		*Tablero* '(nil nil nil nil nil
