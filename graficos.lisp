@@ -127,7 +127,7 @@
 (defun tablero()
 	(with-ltk ()
 		(let* (
-					(img (make-image))
+					;(img (make-image))
 					(sc (make-instance 'canvas :height 520 :width 800))
 					(lienzo (canvas sc))
 					; Caminos por el tablero
@@ -305,8 +305,9 @@
 					   	)   
 
 				   )
-				(image-load img "iron-man.png")
-				(create-image sc 450 0 :image img)
+
+				;(image-load img "iron-man.png")
+				;(create-image sc 450 0 :image img)
         	 )
       )
 

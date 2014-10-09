@@ -2,40 +2,42 @@
 ; nodo= (estado turno regla nivel)
 ;f_eval=(0.5*(nro. de cuad. con 2 lineas)+0.8*(nro. de cuad. mios))-(0.2*(nro. de cuad. con 3 lineas)+0.2*(nro. de cuad. de adversario))
 
-;(setq *Tablero* '(  nil -1 nil nil nil
-;	                -1 nil nil nil nil
-;	                nil 1 nil nil nil
-;	                nil nil nil nil nil
-;	                nil nil nil nil nil)
+(setq *Tablero* '(  nil -1  nil  1  nil
+	                nil nil  1  nil nil
+	                nil nil nil  1  nil
+	                nil nil -1  nil nil
+	                nil  1  nil -1  nil)
 ;
-;      *Cuad* '((1 5 7 11) (3 7 9 13) (11 15 17 21) (13 17 19 23))
+      *Cuad* '((1 5 7 11) (3 7 9 13) (11 15 17 21) (13 17 19 23))
 ;
-;      *Turno* 1
+      *Turno* -1
 ;
-;      *NroHumano* 0
-;      *NroOrdenador* 0
-;)
+      *NroHumano* 0
+      *NroOrdenador* 0
+)
 
 (defun algoritmo_minimax (tablero)
   (setq *Cuad* '((1 5 7 11) (3 7 9 13) (11 15 17 21) (13 17 19 23))
         ;*Turno* 1
         *NroHumano* 0
         *NroOrdenador* 0)
+     (print tablero)
   (setq nodoi (list tablero 1 0 0))
   (setq resultado (val_minimax nodoi))
-  (format t "~%La linea a trazar debe ser:~s" (nth 0 resultado))
+  (format t "~%La linea a trazar debe ser:~s  valor:~s nivel:~s" (nth 0 resultado) (nth 1 resultado) (nth 2 resultado))
   (nth 0 resultado)
 )
 
 (defun val_minimax (nodo)
 	(let ((maximo -50) (minimo 50) (valor '()) (aux '()))
 		;(format t "~%Nodo: ~s Turno:~s Regla:~s Nivel:~s" (nth 0 nodo) (nth 1 nodo) (nth 2 nodo) (nth 3 nodo))
+
 		(if (nodo_terminal nodo)
 			(f_eval nodo)
 			;else
 			(progn
-				;(print "No terminal")
-				(if (>= (nth 3 nodo) 5)   ;3 es el maximo nivel de profundidad del arbol
+				;(print "No terminal")		
+				(if (>= (nth 3 nodo) 3)   ;3 es el maximo nivel de profundidad del arbol
 					(f_eval nodo)
 					;else
 					(progn
@@ -45,9 +47,8 @@
 									(setq aux (val_minimax x))
 									(if (>= (nth 1 aux) maximo)
 										(progn 
-											
-												(setq valor (list (nth 2 x) (nth 1 aux)))
-												;(print valor)
+											(setq valor (list (nth 2 x) (nth 1 aux) (nth 3 aux)))
+											;(print valor)
 											(setq maximo (nth 1 aux))
 										)
 									)
@@ -59,7 +60,7 @@
 									(setq aux (val_minimax x))
 									(if (< (nth 1 aux) minimo)
 										(progn 
-											(setq valor (list (nth 2 x) (nth 1 aux)))
+											(setq valor (list (nth 2 x) (nth 1 aux) (nth 3 aux) ))
 											(setq minimo (nth 1 aux))
 												;(print valor)
 										)
@@ -84,6 +85,7 @@
 	(setq indices '(1 3 5 7 9 11 13 15 17 19 21 23))
 	(dolist (x indices)
 		(if (equal (nth x (nth 0 nodo)) nil) (setq vacias (+ 1 vacias)))
+		                  ;(tablero)
 	)
 	(if (= vacias 0) t nil)
 )
@@ -120,7 +122,8 @@
                	 
 
 				(setq nodoaux  (list tableroaux turnoAux (+ contador 1) (+ (nth 3 nodo) 1) ) )
-				;(print nodoaux)
+				(print nodoaux)
+				(print (f_eval nodoaux))
 				(setq listaSucesor (append listaSucesor (list nodoaux) ) )
                	)    
 			

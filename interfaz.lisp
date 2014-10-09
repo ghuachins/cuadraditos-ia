@@ -135,7 +135,7 @@
 (defun mostrar-tablero2()
   (let
       ((tablero *tablero*) (lineah *lineaH*) (lineav *lineaV*) (turno *turno*))
-      (format t "Turno : ~s Lista Tablero: ~s" turno tablero)
+      ;(format t "Turno : ~s Lista Tablero: ~s" turno tablero)
     (format t "~%| ~s~s~s~s~s | ~&| ~s ~a ~s ~a ~s | ~&| ~s~s~s~s~s | ~&| ~s ~a ~s ~a ~s | ~&| ~s~s~s~s~s |~%"
       'O       ;posicion 0
       (tipo-ficha2 (nth 1 tablero) 1)   ;posicion 1
@@ -291,6 +291,7 @@
         ;(setq lineai (random (length *LineasDisp*))) 
         ;(setq linea (nth lineai *LineasDisp*))  
 		;llamamos a algoritmo minimax
+    ;(print *tablero*)
 		(setq lineaC (algoritmo_minimax *Tablero*))
 
        (setq posreal (dar-pos-real lineaC))
