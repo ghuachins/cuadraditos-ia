@@ -10,9 +10,11 @@
                 nil nil nil nil nil
                 nil nil nil nil nil
                 nil nil nil nil nil)
-    *lineaH* '---
-    *lineaV* 'i
-    *Turno* 1
+    *lineaHh* '-h-
+    *lineaHo* '-o-
+    *lineaVh* 'ih
+    *lineaVo* 'io
+    *Turno* -1
     *hayGanador* NIL
     *FichaH* 'A
     *FichaO* 'B
@@ -107,15 +109,15 @@
     ( (probar pos '(1 3 11 13 21 23)) 
              (cond
                 ((equal Ficha *FichaVacia*) (numero-linea pos))
-                ((equal Ficha *Humano*) *lineah*)
-                ((equal Ficha *Ordenador*) *lineah*)
+                ((equal Ficha *Humano*) *lineahh*)
+                ((equal Ficha *Ordenador*) *lineaho*)
              )
         ); si es horizontal
         ( (probar pos '(5 7 9 15 17 19)) 
              (cond
                 ((equal Ficha *FichaVacia*) (numero-linea pos))
-                ((equal Ficha *Humano*) *lineav*)
-                ((equal Ficha *Ordenador*) *lineav*)
+                ((equal Ficha *Humano*) *lineavh*)
+                ((equal Ficha *Ordenador*) *lineavo*)
              )
         ); si es vertical
         ( (probar pos '(6 8 16 18)) 

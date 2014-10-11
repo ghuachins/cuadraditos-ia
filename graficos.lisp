@@ -167,8 +167,17 @@
 
 		(pack sc :expand 1 :fill :both)
 		(wm-title *tk* "Cuadraditos 3X3")
+		;(image-load img "iron-man.png")
+		;(create-image sc 450 0 :image img)
 
-			(mostrar-tablero2)
+
+						(if(= *turno* -1)
+						(progn
+							(jugar-ordenador)
+							(show-tablero)
+							)	
+							
+						 )
 
 					(bind lienzo "<ButtonPress-1>"
 						(lambda (evento)
@@ -280,7 +289,7 @@
 					    	
 					    	(setq val (tipo-ficha2 (nth (+ contador 1) *tablero*) (+ contador 1) ) )
 					    	
-					    	(if  (or (eq val *lineav*) (eq val *lineah*))    
+					    	(if  (or (eq val *lineavh*) (eq val *lineahh*))    
 
 					    		  (cond
 									( (= (+ contador 1) 1) (itemconfigure lienzo linea1 :fill *colorHumano*) )
@@ -301,16 +310,37 @@
 								  	
 
 					    	)
+
+							(if  (or (eq val *lineavo*) (eq val *lineaho*))    
+
+					    		  (cond
+									( (= (+ contador 1) 1) (itemconfigure lienzo linea1 :fill *colorOrdenador*) )
+									( (= (+ contador 1) 3) (itemconfigure lienzo linea2 :fill *colorOrdenador*) )
+									( (= (+ contador 1) 5) (itemconfigure lienzo linea3 :fill *colorOrdenador*) )
+									( (= (+ contador 1) 7) (itemconfigure lienzo linea4 :fill *colorOrdenador*) )
+									( (= (+ contador 1) 9) (itemconfigure lienzo linea5 :fill *colorOrdenador*) )
+									( (= (+ contador 1) 11) (itemconfigure lienzo linea6 :fill *colorOrdenador*) )
+									( (= (+ contador 1) 13) (itemconfigure lienzo linea7 :fill *colorOrdenador*) )
+									( (= (+ contador 1) 15) (itemconfigure lienzo linea8 :fill *colorOrdenador*) )
+									( (= (+ contador 1) 17) (itemconfigure lienzo linea9 :fill *colorOrdenador*) ) 
+									( (= (+ contador 1) 19) (itemconfigure lienzo linea10 :fill *colorOrdenador*) ) 
+									( (= (+ contador 1) 21) (itemconfigure lienzo linea11 :fill *colorOrdenador*) ) 
+									( (= (+ contador 1) 23) (itemconfigure lienzo linea12 :fill *colorOrdenador*) )
+									(t 'fin)
+								  )
+
+								  	
+
+					    	)
 					   	
+
 					   	)   
 
 				   )
 
-				;(image-load img "iron-man.png")
-				;(create-image sc 450 0 :image img)
-        	 )
-      )
-
+				
+        )
+    )
 )
 
 (tablero)

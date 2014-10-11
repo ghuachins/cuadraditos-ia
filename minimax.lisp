@@ -37,7 +37,7 @@
 			;else
 			(progn
 				;(print "No terminal")		
-				(if (>= (nth 3 nodo) 2)   ;3 es el maximo nivel de profundidad del arbol
+				(if (>= (nth 3 nodo) 3)   ;3 es el maximo nivel de profundidad del arbol
 					(f_eval nodo)
 					;else
 					(progn
@@ -374,10 +374,10 @@
 	;(format t "~%Numero de cuadrados con 3 lineas ~S" num_cuad_3)
 	
 	;f_eval=(0.5*(nro. de cuad. con 2 lineas)+0.8*(nro. de cuad. mios))-(0.2*(nro. de cuad. con 3 lineas)+0.2*(nro. de cuad. de adversario))
-	(if (= turno -1)
+	
 		(setq fun_eval (- (+ (* 0.5 num_cuad_2) (* 0.8 cnt1)) (+ (* 0.2 num_cuad_3) (* 0.2 cnt_1))))
-		(setq fun_eval (- (+ (* 0.5 num_cuad_2) (* 0.8 cnt_1)) (+ (* 0.2 num_cuad_3) (* 0.2 cnt1))))
-	)
+		;(setq fun_eval (- (+ (* 0.5 num_cuad_2) (* 0.8 cnt_1)) (+ (* 0.2 num_cuad_3) (* 0.2 cnt1))))
+	
 	
 	;(format t "~%Valor de la funcion de evaluacion: ~S" fun_eval)
 	fun_eval
