@@ -168,13 +168,14 @@
 		(pack sc :expand 1 :fill :both)
 		(wm-title *tk* "Cuadraditos 3X3")
 		;(image-load img "iron-man.png")
-		;(create-image sc 450 0 :image img)
+		;(create-image sc 460 0 :image img)
 
 
 						(if(= *turno* -1)
 						(progn
 							(jugar-ordenador)
-							(show-tablero)
+							(mostrar-tablero)
+							
 							)	
 							
 						 )
@@ -214,15 +215,11 @@
 							)
 							
 							
-							(mostrar-tablero2)
+							(mostrar-tablero)
 	
 
-						 (show-tablero)
-
+						   (show-tablero)
 						)
-
-
-
 					)
 							    
 

@@ -134,9 +134,9 @@
 
 
 ;funcion para mostrar el tablero
-(defun mostrar-tablero2()
+(defun mostrar-tablero()
   (let
-      ((tablero *tablero*) (lineah *lineaH*) (lineav *lineaV*) (turno *turno*))
+      ((tablero *tablero*) )
       ;(format t "Turno : ~s Lista Tablero: ~s" turno tablero)
     (format t "~%| ~s~s~s~s~s | ~&| ~s ~a ~s ~a ~s | ~&| ~s~s~s~s~s | ~&| ~s ~a ~s ~a ~s | ~&| ~s~s~s~s~s |~%"
       'O       ;posicion 0

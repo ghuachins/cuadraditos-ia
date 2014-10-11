@@ -2,19 +2,19 @@
 ; nodo= (estado turno regla nivel)
 ;f_eval=(0.5*(nro. de cuad. con 2 lineas)+0.8*(nro. de cuad. mios))-(0.2*(nro. de cuad. con 3 lineas)+0.2*(nro. de cuad. de adversario))
 
-(setq *Tablero* '(  nil -1  nil  1  nil
-	                nil nil  1  nil nil
-	                nil nil nil  1  nil
-	                nil nil -1  nil nil
-	                nil  1  nil -1  nil)
+;(setq *Tablero* '(  nil -1  nil  1  nil
+;	                nil nil  1  nil nil
+;	                nil nil nil  1  nil
+;	                nil nil -1  nil nil
+;	                nil  1  nil -1  nil)
 ;
-      *Cuad* '((1 5 7 11) (3 7 9 13) (11 15 17 21) (13 17 19 23))
+;      *Cuad* '((1 5 7 11) (3 7 9 13) (11 15 17 21) (13 17 19 23))
 ;
-      *Turno* 1
+;      *Turno* 1
 ;
-      *NroHumano* 0
-      *NroOrdenador* 0
-)
+;      *NroHumano* 0
+;      *NroOrdenador* 0
+;)
 
 (defun algoritmo_minimax (tablero)
   (setq *Cuad* '((1 5 7 11) (3 7 9 13) (11 15 17 21) (13 17 19 23))
