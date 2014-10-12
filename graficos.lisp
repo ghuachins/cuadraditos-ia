@@ -127,7 +127,11 @@
 (defun tablero()
 	(with-ltk ()
 		(let* (
-					;(img (make-image))
+					(img (make-image))
+					(img2 (make-image))
+					(img3 (make-image))
+					(img4 (make-image))
+					(img5 (make-image))
 					(sc (make-instance 'canvas :height 520 :width 800))
 					(lienzo (canvas sc))
 					; Caminos por el tablero
@@ -167,8 +171,12 @@
 
 		(pack sc :expand 1 :fill :both)
 		(wm-title *tk* "Cuadraditos 3X3")
-		;(image-load img "iron-man.png")
-		;(create-image sc 460 0 :image img)
+		(image-load img "iron-man.png")
+		(create-image sc 460 0 :image img)
+		
+		
+		
+		
 
 
 						(if(= *turno* -1)
@@ -327,6 +335,30 @@
 								  )
 
 								  	
+
+					    	)
+							
+							(if  (eq val *FichaH*)    
+
+					    		  (cond
+									( (= (+ contador 1) 6) (image-load img2 "player1.png") (create-image sc 120 80 :image img2))
+									( (= (+ contador 1) 8) (image-load img3 "player1.png") (create-image sc 320 80 :image img3))
+									( (= (+ contador 1) 16) (image-load img4 "player1.png") (create-image sc 120 280 :image img4))
+									( (= (+ contador 1) 18) (image-load img5 "player1.png")	(create-image sc 320 280 :image img5))									
+									(t 'fin)
+								  )								  	
+
+					    	)
+							
+							(if  (eq val *FichaO*)    
+
+					    		  (cond
+									( (= (+ contador 1) 6) (image-load img2 "pc.png") (create-image sc 120 80 :image img2))
+									( (= (+ contador 1) 8) (image-load img3 "pc.png") (create-image sc 320 80 :image img3))
+									( (= (+ contador 1) 16) (image-load img4 "pc.png") (create-image sc 120 280 :image img4))
+									( (= (+ contador 1) 18) (image-load img5 "pc.png")	(create-image sc 320 280 :image img5))									
+									(t 'fin)
+								  )								  	
 
 					    	)
 					   	
