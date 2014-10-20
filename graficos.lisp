@@ -59,6 +59,15 @@
 (defun val-linea12 (posx posy)
    (and (and (>= posx 280) (<= posx 440)) (and (>= posy 456) (<= posy 464) )  )
   )
+  
+(defun posicion-boton1 (posx posy)
+	(and (and (>= posx 565) (<= posx 720)) (and (>= posy 260) (<= posy 311)))	
+)
+
+(defun posicion-boton2 (posx posy)
+	(and (and (>= posx 565) (<= posx 720)) (and (>= posy 315) (<= posy 366)))	
+)
+
 ;---------------------------------------------------
 
 
@@ -101,7 +110,12 @@
 					                  				   
 					                  				  (if (val-linea12 (event-x evento) (event-y evento) )  
 					                 	  	  	 	       (setq indice 12)               
-					                  
+															(if (posicion-boton1 (event-x evento) (event-y evento))
+																(setq indice 21)
+																(if (posicion-boton2 (event-x evento) (event-y evento))
+																	(setq indice 22)
+																)
+															)
 					       	                          )
 					       	                      )	
 					       	                  )	
@@ -122,6 +136,7 @@
 )
 
 
+
 (inicializar-juego2)
 
 (defun tablero()
@@ -132,6 +147,9 @@
 					(img3 (make-image))
 					(img4 (make-image))
 					(img5 (make-image))
+					(marco (make-image))
+					(botonH (make-image))
+					(botonO (make-image))
 					(sc (make-instance 'canvas :height 520 :width 800))
 					(lienzo (canvas sc))
 					; Caminos por el tablero
@@ -173,13 +191,13 @@
 		(wm-title *tk* "Cuadraditos 3X3")
 		(image-load img "iron-man.png")
 		(create-image sc 460 0 :image img)
-		
-		
-		
-		
-
-
-						(if(= *turno* -1)
+		(image-load marco "marco.png")
+		(create-image sc 490 200 :image marco)
+		(image-load botonH "humano.png")
+		(create-image sc 565 260 :image botonH)
+		(image-load botonO "computador.png")
+		(create-image sc 565 315 :image botonO)
+						(if (and (= *turno* -1) (= *Comienza* 1))
 						(progn
 							(jugar-ordenador)
 							(mostrar-tablero)
@@ -187,7 +205,7 @@
 							)	
 							
 						 )
-
+						 
 					(bind lienzo "<ButtonPress-1>"
 						(lambda (evento)
 
@@ -195,7 +213,7 @@
 							(print indiceLinea)
 							(format t "~&~s    ~s    " (event-x evento) (event-y evento)  )
 							
-							(if  (> indiceLinea 0) 
+							(if  (and (> indiceLinea 0) (= *Comienza* 1) (< indiceLinea 20)) 
 
 									(progn 
 										
@@ -215,11 +233,21 @@
 								                 ((< *NroHumano* *NroOrdenador*) (print "PERDISTE! :'("))
 								                 ((= *NroHumano* *NroOrdenador*) (print "EMPATE :O"))
 								              )
-								              
+								              (format t "~%Num Cuadraditos Ordenador: ~s" *NroOrdenador*)
+								              (format t "~%Num Cuadraditos Humano: ~s~%" *NroHumano*)
 								           )
 								        )
 		
-									)			
+									)
+
+									(if (and (>= indiceLinea 20) (= *Comienza* 0))
+										(progn
+											(setq *Comienza* 1)
+											(if (= indiceLinea 21) (setq *Turno* 1) (setq *Turno* -1))
+										)
+									)
+
+									
 							)
 							
 							
@@ -229,6 +257,8 @@
 						   (show-tablero)
 						)
 					)
+					
+					
 							    
 
 					; Grosor de los caminos

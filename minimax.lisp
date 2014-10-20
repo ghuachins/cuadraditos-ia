@@ -19,9 +19,10 @@
 (defun algoritmo_minimax (tablero)
   (setq *Cuad* '((1 5 7 11) (3 7 9 13) (11 15 17 21) (13 17 19 23))
         ;*Turno* 1
-        *NroHumano* 0
-        *NroOrdenador* 0)
-     (print tablero)
+        ;*NroHumano* 0
+        ;*NroOrdenador* 0)
+  )   
+  (print tablero)
   (setq nodoi (list tablero 1 0 0))
   (setq resultado (val_minimax nodoi))
   (format t "~%La linea a trazar debe ser:~s  valor:~s nivel:~s" (nth 0 resultado) (nth 1 resultado) (nth 2 resultado))
