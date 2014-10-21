@@ -11,7 +11,8 @@
   *colorLinea* '"#ccd2c8"
   *colorFicha* '"#394034"
   *colorHumano* '"#ff2f70"
-  *colorOrdenador* '"#0083e8" )
+  *colorOrdenador* '"#0083e8"
+  *colorFondo* '"#CEECF5")
 
 
 ;---------------------------------------------------
@@ -142,6 +143,7 @@
 (defun tablero()
 	(with-ltk ()
 		(let* (
+					(final 0)
 					(img (make-image))
 					(img2 (make-image))
 					(img3 (make-image))
@@ -150,7 +152,10 @@
 					(marco (make-image))
 					(botonH (make-image))
 					(botonO (make-image))
-					(sc (make-instance 'canvas :height 520 :width 800))
+					(cuadHu (make-image))
+					(cuadOr (make-image))
+					(resultado (make-image))
+					(sc (make-instance 'canvas :height 520 :width 800 :background *colorFondo*))
 					(lienzo (canvas sc))
 					; Caminos por el tablero
 					
@@ -184,6 +189,7 @@
 
 					(linea11 (create-line lienzo (list 80 460 240 460) ))
 					(linea12 (create-line lienzo (list 280 460 440 460) ))
+					
 		
 			 )
 
@@ -197,6 +203,10 @@
 		(create-image sc 565 260 :image botonH)
 		(image-load botonO "computador.png")
 		(create-image sc 565 315 :image botonO)
+		(image-load cuadHu "cero.png")
+		(create-image sc 610 425 :image cuadHu)
+		(image-load cuadOr "cero.png")
+		(create-image sc 717 425 :image cuadOr)
 						(if (and (= *turno* -1) (= *Comienza* 1))
 						(progn
 							(jugar-ordenador)
@@ -229,9 +239,9 @@
 										(if (equal nil *LineasDisp*)
 								          (progn
 								              (cond 
-								                 ((> *NroHumano* *NroOrdenador*) (print "GANASTE! :D"))
-								                 ((< *NroHumano* *NroOrdenador*) (print "PERDISTE! :'("))
-								                 ((= *NroHumano* *NroOrdenador*) (print "EMPATE :O"))
+								                 ((> *NroHumano* *NroOrdenador*) (setq final 1))
+								                 ((< *NroHumano* *NroOrdenador*) (setq final 2))
+								                 ((= *NroHumano* *NroOrdenador*) (setq final 3))
 								              )
 								              (format t "~%Num Cuadraditos Ordenador: ~s" *NroOrdenador*)
 								              (format t "~%Num Cuadraditos Humano: ~s~%" *NroHumano*)
@@ -253,8 +263,13 @@
 							
 							(mostrar-tablero)
 	
-
-						   (show-tablero)
+							(show-tablero)
+							
+							(cond
+								((= final 1) (image-load resultado "ganaste.png") (create-image sc 80 200 :image resultado))
+								((= final 2) (image-load resultado "perdiste.png") (create-image sc 80 200 :image resultado))
+								((= final 3) (image-load resultado "empate.png") (create-image sc 80 200 :image resultado))
+							)
 						)
 					)
 					
@@ -391,6 +406,22 @@
 								  )								  	
 
 					    	)
+							
+							(cond
+								((= *NroHumano* 0) (image-load cuadHu "cero.png"))
+								((= *NroHumano* 1) (image-load cuadHu "uno.png"))
+								((= *NroHumano* 2) (image-load cuadHu "dos.png"))
+								((= *NroHumano* 3) (image-load cuadHu "tres.png"))
+								((= *NroHumano* 4) (image-load cuadHu "cuatro.png"))
+							)
+							
+							(cond
+								((= *NroOrdenador* 0) (image-load cuadOr "cero.png"))
+								((= *NroOrdenador* 1) (image-load cuadOr "uno.png"))
+								((= *NroOrdenador* 2) (image-load cuadOr "dos.png"))
+								((= *NroOrdenador* 3) (image-load cuadOr "tres.png"))
+								((= *NroOrdenador* 4) (image-load cuadOr "cuatro.png"))
+							)
 					   	
 
 					   	)   
