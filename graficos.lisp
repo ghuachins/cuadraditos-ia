@@ -337,7 +337,7 @@
 
 					    (dotimes (contador 23)
 					    	
-					    	(setq val (tipo-ficha2 (nth (+ contador 1) *tablero*) (+ contador 1) ) )
+					    	(setq val (tipo-ficha (nth (+ contador 1) *tablero*) (+ contador 1) ) )
 					    	
 					    	(if  (or (eq val *lineavh*) (eq val *lineahh*))    
 
