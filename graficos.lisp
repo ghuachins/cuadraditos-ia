@@ -138,7 +138,7 @@
 
 
 
-(inicializar-juego2)
+(inicializar-juego)
 
 (defun tablero()
 	(with-ltk ()
