@@ -106,7 +106,7 @@
 
 (defun sucesores (nodo)
 	(setq listaSucesor '())
-	(setq turnoHijo (nth 0 nodo))
+	(setq turnoHijo (nth 1 nodo))
     (setq tablero (nth 0 nodo))
     (setq turnoAux 0)
     (setq Aux '())
